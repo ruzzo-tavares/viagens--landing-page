@@ -12,6 +12,3 @@ Criei uma interface limpa e acessível que destaca 10 vilarejos (Hallstatt, Bibu
    `git clone https://github.com/SEU_USUARIO/viagens--landing-page.git`
 2. Abra `index.html` no navegador ou use Live Server no VSCode.
 3. (Opcional) Coloque imagens em `assets/images/` e atualize os `src` no HTML.
-
-## Observações finais
-- Para entrega, recomendo hospedar as imagens no próprio repositório para evitar links externos quebrados.
