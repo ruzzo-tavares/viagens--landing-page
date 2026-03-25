@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Vilarejos Encantadores — Viagens</title>
+
+    <style>
+      :root{
+        --primary:#6750A4; 
+        --accent:#03DAC6;
+        --bg:#F6F6FB;
+        --card:#FFFFFF;
+        --muted:#6B6B7A;
+        --radius:14px;
+        --shadow: 0 6px 18px rgba(16,24,40,0.08);
+        --glass: rgba(255,255,255,0.6);
+      }
+
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{
+        margin:0;
+        font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+        background:var(--bg);
+        color:#222;
+        line-height:1.5;
+      }
+
+      nav{
+        position:sticky;
+        top:0;
+        z-index:40;
+        background:linear-gradient(90deg,var(--primary), #4b3b9a);
+        padding:12px 18px;
+        box-shadow: 0 4px 12px rgba(16,24,40,0.08);
+        backdrop-filter: blur(6px);
+      }
+
+      nav .container{
+        max-width:1100px;
+        margin:0 auto;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+      }
+
+      .brand{
+        color:white;
+        font-weight:700;
+        display:flex;
+        align-items:center;
+        gap:10px;
+      }
+
+      .brand .dot{
+        width:10px;height:10px;border-radius:50%;
+        background:var(--accent);
+      }
+
+      nav ul{
+        list-style:none;
+        display:flex;
+        gap:12px;
+        margin:0;padding:0;
+      }
+
+      nav a{
+        color:rgba(255,255,255,0.95);
+        text-decoration:none;
+        padding:10px 18px;
+        border-radius:12px;
+        font-weight:600;
+        transition: all .25s ease;
+        opacity:0.9;
+      }
+
+      nav a:hover{
+        background:rgba(255,255,255,0.15);
+        transform:translateY(-2px);
+        opacity:1;
+        box-shadow:0 6px 20px rgba(255,255,255,0.2);
+      }
+
+      main#home{margin:0;}
+      
+      .banner{
+        height:420px;
+        display:flex;align-items:center;justify-content:center;
+        background-image: linear-gradient(180deg, rgba(6,6,10,0.15), rgba(6,6,10,0.15)),
+                          url("assets/banner-vilarejo.jpg");
+        background-size:cover;background-position:center;
+        border-bottom-left-radius:20px;border-bottom-right-radius:20px;
+        box-shadow:var(--shadow);
+      }
+
+      .banner .overlay{
+        background:linear-gradient(90deg,rgba(77, 60, 124, 0.9),rgba(3,218,198,0.9));
+        color:white;padding:32px 40px;border-radius:16px;
+        text-align:center;max-width:900px;box-shadow:0 15px 40px rgba(16,24,40,0.25);
+      }
+
+      .banner h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin:0;line-height:1.1;}
+
+      .wrap{max-width:1100px;margin:32px auto;padding:0 20px 80px;}
+
+      .section-title{
+        font-size:2.2rem;font-weight:800;color:var(--primary);
+        margin:0 0 24px;padding-bottom:16px;
+        border-bottom:4px solid var(--accent);max-width:450px;
+      }
+
+      #locais {
+        background:linear-gradient(135deg,var(--glass),rgba(103,80,164,0.03));
+        padding:48px 24px;
+        border-radius:var(--radius);
+        margin-bottom:32px;
+        box-shadow:var(--shadow);
+      }
+
+      .horizontal-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: 24px;
+        padding: 20px 0;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary) transparent;
+        -ms-overflow-style: none;
+        scroll-behavior: smooth;
+      }
+
+      .horizontal-grid::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .horizontal-grid::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .horizontal-grid::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 10px;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+      }
+
+      .horizontal-grid::-webkit-scrollbar-thumb:hover {
+        background: var(--accent);
+      }
+
+      .card {
+        flex: 0 0 320px;
+        background:var(--card);
+        border-radius:var(--radius);
+        box-shadow:var(--shadow);
+        overflow:hidden;
+        transition:all .3s cubic-bezier(.2,.9,.3,1);
+        scroll-snap-align: start;
+        cursor: grab;
+      }
+
+      .card:active {
+        cursor: grabbing;
+      }
+
+      .card:hover{
+        transform:translateY(-10px) scale(1.02);
+        box-shadow:0 25px 50px rgba(16,24,40,0.2);
+      }
+
+      .card img{width:100%;height:200px;object-fit:cover;}
+      
+      .card .content{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;}
+      
+      .card h3{margin:0;color:var(--primary);font-size:1.25rem;font-weight:700;}
+      
+      .card p{margin:0;color:var(--muted);font-size:0.96rem;flex:1;}
+      
+      .chip{
+        background:linear-gradient(90deg,rgba(103,80,164,0.1),rgba(3,218,198,0.08));
+        color:var(--primary);padding:8px 14px;border-radius:20px;
+        font-weight:700;font-size:0.85rem;border:1px solid rgba(103,80,164,0.1);
+      }
+
+      #tripme{
+        background:linear-gradient(135deg,var(--glass),rgba(103,80,164,0.04));
+        padding:48px 32px;border-radius:var(--radius);margin-bottom:32px;
+        box-shadow:var(--shadow);
+      }
+
+      .trip-features{
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+        gap:24px;margin-top:28px;
+      }
+
+      .feature{
+        background:var(--card);padding:28px;border-radius:var(--radius);
+        text-align:center;box-shadow:var(--shadow);
+        transition:transform .25s ease;
+      }
+
+      .feature:hover{transform:translateY(-8px);}
+
+      .feature-icon{
+        width:64px;height:64px;margin:0 auto 16px;
+        background:linear-gradient(135deg,var(--primary),var(--accent));
+        border-radius:50%;display:flex;align-items:center;justify-content:center;
+        font-size:1.8rem;color:white;
+      }
+
+      #meetus{
+        display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+        background:var(--card);padding:48px;border-radius:var(--radius);
+        box-shadow:var(--shadow);margin-bottom:32px;
+      }
+
+      .team-info h3{color:var(--primary);font-size:1.4rem;margin-bottom:12px;}
+      
+      .team-list{display:flex;flex-direction:column;gap:12px;}
+      
+      .team-member{
+        display:flex;align-items:center;gap:16px;
+        padding:16px;background:rgba(103,80,164,0.05);
+        border-radius:12px;transition:all .2s ease;
+      }
+
+      .team-member:hover{background:rgba(103,80,164,0.1);transform:translateX(8px);}
+
+      .team-avatar{
+        width:50px;height:50px;border-radius:50%;
+        background:linear-gradient(135deg,var(--primary),var(--accent));
+        display:flex;align-items:center;justify-content:center;
+        color:white;font-weight:700;
+      }
+
+      #advice .advice-grid{
+        display:grid;gap:24px;margin-top:28px;
+      }
+
+      .advice-item{
+        background:var(--glass);padding:28px;border-left:5px solid var(--accent);
+        border-radius:12px;transition:all .25s ease;
+      }
+
+      .advice-item:hover{
+        transform:translateX(12px);box-shadow:0 12px 35px rgba(3,218,198,0.2);
+      }
+
+      .backtop{
+        display:inline-flex;align-items:center;gap:10px;
+        margin-top:32px;padding:14px 24px;border-radius:12px;
+        background:var(--primary);color:white;font-weight:700;
+        text-decoration:none;border:2px solid var(--primary);
+        transition:all .3s ease;box-shadow:var(--shadow);
+      }
+
+      .backtop:hover{
+        background:white;color:var(--primary);
+        transform:translateY(-4px);box-shadow:0 15px 40px rgba(103,80,164,0.3);
+      }
+
+      footer{
+        background:var(--card);padding:40px 20px;
+        text-align:center;color:var(--muted);border-top:1px solid rgba(16,24,40,0.06);
+      }
+
+      @media (max-width:768px){
+        nav ul{flex-wrap:wrap;gap:8px;}
+        #meetus{grid-template-columns:1fr;gap:32px;}
+        .banner{height:360px;}
+        .trip-features{grid-template-columns:1fr;}
+        .card{flex: 0 0 280px;}
+      }
+    </style>
+  </head>
+  <body>
+    <nav aria-label="Navegação principal">
+      <div class="container">
+        <div class="brand">
+          <span class="dot"></span><span>Vilarejos Europa</span>
+        </div>
+        <ul role="menubar">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#locais">Locais</a></li>
+          <li><a href="#tripme">TripMe</a></li>
+          <li><a href="#meetus">MeetUs</a></li>
+          <li><a href="#advice">Advice</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- BANNER NO MAIN -->
+    <main id="home" aria-labelledby="banner-title">
+      <section class="banner">
+        <div class="overlay">
+          <h1 id="banner-title">Vilarejos Encantadores da Europa</h1>
+          <p>Descubra os tesouros escondidos do Velho Continente</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="wrap">
+
+      <section id="locais" aria-labelledby="title-locais">
+        <h2 class="section-title" id="title-locais">Locais</h2>
+        <p>Role horizontalmente para conhecer todos os vilarejos selecionados.</p>
+        
+        <div class="horizontal-grid">
+          <!-- Hallstatt -->
+          <article class="card" aria-labelledby="hall-title">
+            <img src="assets/hallstatt.jpg" 
+                 alt="Casas de Hallstatt à beira do lago com montanhas">
+            <div class="content">
+              <h3 id="hall-title">Hallstatt, Áustria</h3>
+              <p>Um vilarejo alpino com mais de 7.000 anos de história, situado à beira do lago Hallstätter See, cercado pelos Alpes.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;">
+                <span class="chip">Alpes Austríacos</span>
+                <span style="font-size:0.9rem;color:var(--muted)">História antiga</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bibury -->
+          <article class="card" aria-labelledby="bibury-title">
+            <img src="assets/bibury.jpg" 
+                 alt="Arlington Row em Bibury, casas de pedra">
+            <div class="content">
+              <h3 id="bibury-title">Bibury, Inglaterra</h3>
+              <p>Frequentemente citado como o mais bonito da Inglaterra, famoso pela Arlington Row — casas de pedra do século XVII.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;">
+                <span class="chip">Cotswolds</span>
+                <span style="font-size:0.9rem;color:var(--muted)">Arquitetura histórica</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Oia -->
+          <article class="card" aria-labelledby="oia-title">
+            <img src="assets/oia.jpg" 
+                 alt="Casas brancas e cúpulas azuis de Oia ao pôr do sol">
+            <div class="content">
+              <h3 id="oia-title">Oia, Grécia</h3>
+              <p>Ícone das Cíclades com cúpulas azuis e casas caiadas, famosa pelo espetáculo do pôr do sol no Mar Egeu.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;">
+                <span class="chip">Santorini</span>
+                <span style="font-size:0.9rem;color:var(--muted)">Pôr do sol épico</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bled -->
+        <article id="bled" class="card" aria-labelledby="h-bled">
+          <img src="assets/bled.jpg" 
+               alt="Ilha com igreja no centro do Lago Bled">
+          <div class="content">
+            <h3 id="h-bled">Bled, Eslovênia</h3>
+            <p>
+              Famoso pelo Lago Bled, com uma ilha no centro que abriga uma
+              igreja, tudo emoldurado pelo Castelo de Bled e montanhas ao redor.
+            </p>
+            <div class="meta">
+              <span class="chip">Lago</span>
+              <span style="font-size:0.9rem;color:var(--muted)"
+                >Ilha & castelo</span
+              >
+            </div>
+          </div>
+        </article>
+
+        <!-- Vernazza -->
+        <article id="vernazza" class="card" aria-labelledby="h-vernazza">
+          <img
+            src="assets/vernazza.jpg"
+            alt="Casas coloridas de Vernazza com vista para o mar"
+          />
+          <div class="content">
+            <h2 id="h-vernazza">Vernazza, Itália</h2>
+            <p>
+              Localizado na costa íngreme de Cinque Terre, Vernazza destaca-se
+              pelas casas coloridas e pela vista direta para o mar Mediterrâneo.
+            </p>
+            <div class="meta">
+              <span class="chip">Cinque Terre</span>
+              <span style="font-size:0.9rem;color:var(--muted)"
+                >Costa & cores</span
+              >
+            </div>
+          </div>
+        </article>
+
+        <!-- Folegandros -->
+        <article id="folegandros" class="card" aria-labelledby="h-folegandros">
+          <img
+            src="assets/folegandros.jpg"
+            alt="Casario branco de Folegandros em penhasco"
+          />
+          <div class="content">
+            <h2 id="h-folegandros">Folegandros, Grécia</h2>
+            <p>
+              Uma alternativa mais calma a Santorini: Folegandros oferece ruas
+              brancas, mirantes tranquilos e um ritmo de ilha mais sereno.
+            </p>
+            <div class="meta">
+              <span class="chip">Ilha</span>
+              <span style="font-size:0.9rem;color:var(--muted)"
+                >Tranquilidade</span
+              >
+            </div>
+          </div>
+        </article>
+
+        <!-- Wengen -->
+        <article id="wengen" class="card" aria-labelledby="h-wengen">
+          <img
+            src="assets/wengen.jpg"
+            alt="Vila alpina de Wengen com chalés e montanhas"
+          />
+          <div class="content">
+            <h2 id="h-wengen">Wengen, Suíça</h2>
+            <p>
+              Uma vila alpina tradicional, sem carros, ideal para quem busca
+              contato com a natureza e trilhas nos Alpes suíços.
+            </p>
+            <div class="meta">
+              <span class="chip">Alpes</span>
+              <span style="font-size:0.9rem;color:var(--muted)">Car-free</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Albarracín -->
+        <article id="albarracin" class="card" aria-labelledby="h-albarracin">
+          <img
+            src="assets/albarracin.jpg"
+            alt="Casario terracota de Albarracín com muralhas medievais"
+          />
+          <div class="content">
+            <h2 id="h-albarracin">Albarracín, Espanha</h2>
+            <p>
+              Uma das vilas medievais mais bonitas da Espanha, com muralhas,
+              ruas estreitas e arquitetura em tons terracota.
+            </p>
+            <div class="meta">
+              <span class="chip">Medieval</span>
+              <span style="font-size:0.9rem;color:var(--muted)">Muralhas</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Furnas -->
+        <article id="furnas" class="card" aria-labelledby="h-furnas">
+          <img
+            src="assets/furnas.jpg"
+            alt="Caldeiras e vegetação nas Furnas, São Miguel, Açores"
+          />
+          <div class="content">
+            <h2 id="h-furnas">Furnas, Portugal</h2>
+            <p>
+              Famoso pelas águas termais e caldeiras na ilha de São Miguel — um
+              destino de geotermia, jardins e gastronomia local cozida no calor
+              natural.
+            </p>
+            <div class="meta">
+              <span class="chip">Açores</span>
+              <span style="font-size:0.9rem;color:var(--muted)"
+                >Águas termais</span
+              >
+            </div>
+          </div>
+        </article>
+
+        <!-- Tobermory -->
+        <article id="tobermory" class="card" aria-labelledby="h-tobermory">
+          <img
+            src="assets/tobermory.jpg"
+            alt="Porto colorido de Tobermory com casas vibrantes"
+          />
+          <div class="content">
+            <h2 id="h-tobermory">Tobermory, Escócia</h2>
+            <p>
+              Conhecido pelo seu porto colorido, Tobermory é acolhedor e
+              diferente — ótimo para passeios costeiros e observação de vida
+              marinha.
+            </p>
+            <div class="meta">
+              <span class="chip">Ilha</span>
+              <span style="font-size:0.9rem;color:var(--muted)"
+                >Porto colorido</span
+              >
+            </div>
+          </div>
+        </article>
+        </div>
+        <a class="backtop" href="#home">← Voltar ao Topo</a>
+      </section>
+
+
+      <section id="tripme" aria-labelledby="tripme-title">
+        <h2 class="section-title" id="tripme-title">TripMe</h2>
+        <p>Crie sua viagem perfeita pelos vilarejos europeus com nossos pacotes personalizados.</p>
+        
+        <div class="trip-features">
+          <div class="feature">
+            <div class="feature-icon">✈️</div>
+            <h3>Passagem + Hospedagem</h3>
+            <p>Pacotes completos com voo direto e acomodação em pousadas charmosas</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🚗</div>
+            <h3>Transfers Privados</h3>
+            <p>Carro com motorista para conectar todos os vilarejos sem complicações</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🍽️</div>
+            <h3>Experiências Locais</h3>
+            <p>Jantares em casas de família e tours guiados exclusivos</p>
+          </div>
+        </div>
+        <a class="backtop" href="#home">← Voltar ao Topo</a>
+      </section>
+
+      <section id="meetus" aria-labelledby="meetus-title">
+        <h2 class="section-title" id="meetus-title">MeetUs</h2><br>
+        <p>Conheça nossa equipe apaixonada por vilarejos europeus.</p>
+        
+        <div style="grid-column:1/-1;margin-top:24px;">
+          <div class="team-info">
+            <h3>🧑🏾‍💼👨🏼‍💼 Nossa Equipe</h3>
+            <div class="team-list">
+              <div class="team-member">
+                <div class="team-avatar">RT</div>
+                <span>Ruzzo Tavares - Idealizador<br><small>Aluno em Desenvolvimento Front-End</small></span>
+              </div>
+              <div class="team-member">
+                <div class="team-avatar">AM</div>
+                <span>Alexia Monteiro - Curadora de Destinos<br><small>Especialista em Turismo Europeu </small></span>
+            </div>
+          </div>
+        </div>
+        <a class="backtop" href="#home">← Voltar ao Topo</a>
+      </section>
+
+      <section id="advice" aria-labelledby="advice-title">
+        <h2 class="section-title" id="advice-title">Advice</h2>
+        <p>Conselhos essenciais para sua viagem perfeita aos vilarejos.</p>
+        
+        <div class="advice-grid">
+          <div class="advice-item">
+            <h3>📅 Quando ir</h3>
+            <p>Entre Maio e Junho ou entre Setembro e Outubro: clima perfeito, menos turistas, preços melhores.</p>
+          </div>
+          <div class="advice-item">
+            <h3>👞 O que vestir</h3>
+            <p>Sapatos confortáveis... há muitas escadas!, meias, camadas leves, capa de chuva para Alpes.</p>
+          </div>
+          <div class="advice-item">
+            <h3>💰 Como economizar</h3>
+            <p>Trem regional, pousadas familiares, prefira almoçar onde os locais comem, compre passe de vilarejos.</p>
+          </div>
+        </div>
+        <a class="backtop" href="#home">← Voltar ao Topo</a>
+      </section>
+
+    </div>
+
+    <footer>
+      <p>© 2026 Vilarejos Europa Tours • Roraima, BR</p>
+      <p style="font-size:0.85rem;">Imagens extraídas de vários repositórios de fotos gratuitos</p>
+    </footer>
+  </body>
+</html>
