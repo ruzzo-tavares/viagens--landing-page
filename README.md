@@ -7,19 +7,22 @@ Landing page simples e moderna sobre vilarejos encantadores, construída para cu
 🏗️ Estrutura do Projeto
 
 viagens--landing-page/
-├── index.html          # Página principal
-├── assets/
-│   ├── banner-vilarejo.jpg    # Banner
-│   ├── hallstatt.jpg          # 10 imagens dos vilarejos
-│   ├── bibury.jpg
-│   ├── oia.jpg
-│   ├── bled.jpg
-│   ├── vernazza.jpg
-│   ├── folegandros.jpg
-│   ├── wengen.jpg
-│   ├── albarracin.jpg
-│   ├── furnas.jpg
-│   └── tobermory.jpg
+│
+├── index.html          # Página principal (HTML + CSS inline)
+│
+├── assets/             # Pasta com imagens locais
+│   ├── banner-vilarejo.jpg    # Banner hero da página
+│   ├── hallstatt.jpg          # Hallstatt, Áustria
+│   ├── bibury.jpg             # Bibury, Inglaterra
+│   ├── oia.jpg                # Oia, Grécia
+│   ├── bled.jpg               # Bled, Eslovênia
+│   ├── vernazza.jpg           # Vernazza, Itália
+│   ├── folegandros.jpg        # Folegandros, Grécia
+│   ├── wengen.jpg             # Wengen, Suíça
+│   ├── albarracin.jpg         # Albarracín, Espanha
+│   ├── furnas.jpg             # Furnas, Portugal
+│   └── tobermory.jpg          # Tobermory, Escócia
+│
 └── README.md           # Este arquivo
 
 🎨 Paleta de Cores
@@ -49,6 +52,7 @@ Baixe imagem para assets/nome-vilarejo.jpg
 Copie um <article class="card"> na seção #locais
 
 --> Atualize src, alt, título e descrição
+
 --primary: #nova-cor;
 --accent: #nova-destaque;
 
