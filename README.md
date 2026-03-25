@@ -49,7 +49,7 @@ Advice - Dicas práticas em lista animada
 🎨 Customizações  
 --> Adicionar Novos Vilarejos  
 Baixe imagem para assets/nome-vilarejo.jpg  
-Copie um <article class="card"> na seção #locais  
+Copie um &lt;article class="card"&gt; na seção #locais  
   
 --> Atualize src, alt, título e descrição  
   
